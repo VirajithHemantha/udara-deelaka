@@ -29,7 +29,7 @@ const INVITATION = {
   rsvpContacts: ["චන්දන – 076 9640 950", "චතුර – 077 1432 866"],
 } as const;
 
-const backgroundMusic = "/Brooklyn Duo - A Thousand Years [WEDDING VERSION].mp3";
+const backgroundMusic = "/Datha_Dara_Dhanith_Sri_Sarigama_lk (1).mp3";
 const googleScriptUrl =
   "https://script.google.com/macros/s/AKfycbyHN1BshRvxx96eATyW9C0rtkaNFXAoNAe9lh0TiO1uJ-eKzlwXTKglqTUSz5ZH-CoKqA/exec";
 
