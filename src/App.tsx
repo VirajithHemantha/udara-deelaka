@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, MapPin, Calendar, Clock, Send, ChevronDown } from "lucide-react";
+import { Sparkles, MapPin, Calendar, Clock, ChevronDown } from "lucide-react";
 
 const INVITATION = {
   couple: {
@@ -268,13 +268,7 @@ export default function WeddingInvitation() {
     guests: "1",
   });
 
-  const [wishForm, setWishForm] = useState({
-    name: "",
-    message: "",
-  });
-
   const [rsvpStatus, setRsvpStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
-  const [wishStatus, setWishStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const introVideoRef = React.useRef<HTMLVideoElement>(null);
@@ -319,29 +313,7 @@ export default function WeddingInvitation() {
     }
   };
 
-  const handleWishSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
-    if (!wishForm.name.trim() || !wishForm.message.trim()) {
-      setWishStatus("error");
-      return;
-    }
-
-    setWishStatus("sending");
-
-    try {
-      await submitToGoogleSheet({
-        action: "wish",
-        name: wishForm.name.trim(),
-        message: wishForm.message.trim(),
-      });
-
-      setWishStatus("success");
-      setWishForm({ name: "", message: "" });
-    } catch {
-      setWishStatus("error");
-    }
-  };
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -432,7 +404,7 @@ export default function WeddingInvitation() {
                     className="mb-12"
                   >
                     <h2 className="text-4xl md:text-6xl text-white mb-2 drop-shadow-2xl">
-                      විවාහ මංගල්‍යය
+                      ස්වස්ති සිද්ධම්
                     </h2>
                     <p className="text-xl md:text-2xl text-[#dcebe1] tracking-[0.3em] drop-shadow-lg">
                       {INVITATION.couple.bride} සහ {INVITATION.couple.groom}
@@ -485,7 +457,7 @@ export default function WeddingInvitation() {
                     transition={{ duration: 2, delay: 0.8 }}
                     className="text-3xl md:text-7xl text-white mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
                   >
-                    විවාහ ආරාධනය
+                    විවාහ ආරාධනයයි!
                   </motion.h2>
 
                   <div className="flex flex-col items-center w-full max-w-[280px] mx-auto">
@@ -511,7 +483,7 @@ export default function WeddingInvitation() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 2, delay: 1.8 }}
-                      className="text-xl md:text-4xl text-white/90 tracking-[0.4em] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] self-end"
+                      className="text-3xl md:text-6xl text-white/90 tracking-[0.4em] font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] self-end"
                     >
                       {INVITATION.couple.groom}
                     </motion.p>
@@ -562,7 +534,7 @@ export default function WeddingInvitation() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-sm md:text-base tracking-[0.6em] font-bold text-[#2d5a27] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                 >
-                  විවාහ ආරාධනය
+                  විවාහ ආරාධනයයි!
                 </motion.p>
 
                 <motion.div
@@ -593,7 +565,7 @@ export default function WeddingInvitation() {
                   className="mt-12 space-y-5"
                 >
                   <p className="text-sm md:text-base tracking-[0.35em] text-[#2d5a27] font-bold drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-                    {INVITATION.date.displayLong} · {INVITATION.time.ceremonyStart}
+                    {INVITATION.date.displayLong}
                   </p>
 
                   <p className="text-[#2d5a27]/70 text-sm md:text-base tracking-[0.15em] font-medium leading-loose max-w-2xl mx-auto">
@@ -646,29 +618,38 @@ export default function WeddingInvitation() {
                     <div className="h-px w-8 bg-[#2d5a27]" />
                   </div>
 
-                  <div className="text-[#2d5a27] space-y-4">
-                    <div className="space-y-4 mb-8">
-                      <p className="text-sm md:text-base tracking-[0.4em] mb-2 font-bold">
-                        පවුල් දෙකක් ආදරයෙන් එක්වන මොහොතක්
-                      </p>
+                  <div className="text-[#2d5a27] space-y-6 max-w-3xl mx-auto leading-relaxed text-base md:text-lg">
+                    <p className="text-slate-700">
+                      උපාලි ගනේවත්ත මහතාගේ සහ නාලනී උයන්වත්ත මහත්මියගේ ආදරණීය දියණිය වන
+                    </p>
+                    <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
+                      සයුරි,
+                    </h3>
+                    
+                    <p className="text-slate-700">
+                      ඕ. කේ. අලුත්ගමගේ මහතාගේ සහ රංජනී රාජපක්ෂ මහත්මියගේ ආදරණීය පුත් වන
+                    </p>
+                    <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
+                      චතුර
+                    </h3>
 
-                      <div className="flex flex-col items-center justify-center gap-2">
-                        <span className="text-sm md:text-base tracking-wider text-slate-700">
-                          උපාලි ගනේවත්ත මහතා සහ නාලනී උයන්වත්ත මහත්මිය
-                        </span>
-                        <span className="text-2xl text-[#3f7a39] italic my-2">සමඟ</span>
-                        <span className="text-sm md:text-base tracking-wider text-slate-700">
-                          ඕ. කේ. අලුත්ගමගේ මහතා සහ රංජනී රාජපක්ෂ මහත්මිය
-                        </span>
-                      </div>
+                    <p className="text-slate-700 max-w-2xl mx-auto pt-2">
+                      සමඟ අතිනත ගන්නා සොඳුරු මොහොත, ඔබගේ ආශීර්වාදයෙන් වර්ණවත් කර ගැනීම සඳහා,
+                    </p>
+
+                    <div className="py-6 my-4 border-t border-b border-[#a2c5a0]/50 space-y-3 font-semibold text-[#2d5a27]">
+                      <p>2026 නොවැම්බර් මස 05 වන ගුරු දින,</p>
+                      <p>අමායා හිල්ස් උත්සව ශාලා පරිශ්‍රයට,</p>
+                      <p>ඔබට</p>
+                      <p className="text-lg md:text-xl font-bold">පැමිණෙන මෙන් ගෞරවයෙන් ආරාධනා කර සිටිමු.</p>
                     </div>
 
-                    <p className="text-sm md:text-base tracking-[0.2em] md:tracking-[0.4em] font-medium leading-loose max-w-3xl border-t border-b border-[#a2c5a0]/50 py-6">
-                      ඔබගේ සහභාගිත්වය අප දෙදෙනාට මහත් ආශීර්වාදයකි! ආදරයෙන් පිරුණු හදවතින්, ඔබගේ පැමිණීම ගෞරවයෙන් ඉල්ලා සිටිමු
-                      <br />
-                      <span className="text-[#3f7a39] font-bold text-base md:text-xl my-2 block">
-                        {INVITATION.couple.brideFull} සහ {INVITATION.couple.groomFull}
-                      </span>
+                    <p className="text-[#3f7a39] font-bold text-sm md:text-base">
+                      (පෝරුවේ චාරිත්‍ර පෙ.ව. 10.02 ට)
+                    </p>
+
+                    <p className="text-[#2d5a27] font-bold text-lg md:text-xl mt-6">
+                      ඔබගේ සහභාගිත්වය අප දෙදෙනාට මහත් ආශීර්වාදයකි!
                     </p>
                   </div>
                 </motion.div>
@@ -772,69 +753,6 @@ export default function WeddingInvitation() {
               </div>
             </section>
 
-            <section className="relative py-28 md:py-48 bg-transparent overflow-hidden">
-              <div className="container mx-auto px-6 max-w-5xl relative z-10 text-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="space-y-6 mb-12"
-                >
-                  <div className="flex flex-col items-center gap-3">
-                    <span className="text-[#2d5a27] font-bold tracking-[0.6em] text-sm md:text-base opacity-50">
-                      දවසේ වැඩසටහන
-                    </span>
-                    <div className="h-px w-16 bg-[#2d5a27]/30" />
-                  </div>
-
-                  <h2 className="text-5xl md:text-7xl bg-gradient-to-r from-[#3f7a39] via-[#2d5a27] to-[#3f7a39] bg-clip-text text-transparent leading-none drop-shadow-sm italic">
-                    කාලසටහන
-                  </h2>
-
-                  <p className="text-[#2d5a27]/70 text-sm md:text-base tracking-[0.3em] font-medium max-w-2xl mx-auto pt-2 leading-loose">
-                    ඔබ සමඟ බෙදා ගැනීමට බලා සිටින අපගේ විශේෂ දිනයේ සරල වැඩසටහන.
-                  </p>
-                </motion.div>
-
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white"
-                  >
-                    <img src={PRE_IMAGES[1]} alt="" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </motion.div>
-
-                  <div className="mx-auto w-full text-left bg-white border border-[#a2c5a0]/40 shadow-[0_30px_70px_-20px_rgba(45,90,39,0.1)] rounded-[2rem]">
-                    <div className="p-8 md:p-12 space-y-8">
-                      {[
-                        ["පෝරු උත්සවය ආරම්භය", INVITATION.time.ceremonyStart],
-                        ["පෝරු උත්සවය අවසානය", INVITATION.time.ceremonyEnd],
-                        ["විවාහ ලියාපදිංචිය", INVITATION.time.registration],
-                        ["යුවළගේ පිළිගැනීම", INVITATION.time.welcome],
-                      ].map(([title, time]) => (
-                        <div key={title} className="flex items-start gap-4">
-                          <div className="w-10 h-10 rounded-full border border-[#3f7a39]/20 flex items-center justify-center shrink-0">
-                            <Clock className="w-4 h-4 text-[#3f7a39]" />
-                          </div>
-                          <div>
-                            <div className="text-sm md:text-base tracking-widest font-bold text-[#2d5a27]/60">
-                              {title}
-                            </div>
-                            <div className="text-base md:text-xl text-[#2d5a27] tracking-widest font-bold mt-1">
-                              {time}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             <section className="relative py-28 md:py-48 bg-[#2d5a27] flex flex-col items-center overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/20 via-transparent to-black/20 pointer-events-none" />
 
@@ -913,6 +831,119 @@ export default function WeddingInvitation() {
             </section>
 
             <Gallery />
+
+
+            <section className="relative py-32 md:py-48 bg-transparent flex flex-col items-center overflow-hidden">
+              <div className="container mx-auto px-4 max-w-4xl flex flex-col items-center relative z-10 w-full">
+                <motion.h2
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-2xl md:text-4xl text-slate-800 tracking-[0.3em] mb-12 text-center"
+                >
+                  පැමිණීම තහවුරු කිරීම
+                </motion.h2>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true }}
+                  className="relative w-full max-w-[650px] bg-white p-6 md:p-10 shadow-[0_40px_100px_-25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center"
+                >
+                  <div className="w-full border border-slate-300 rounded-[1.5rem] p-6 md:p-8 flex flex-col items-center">
+                    <h3 className="text-2xl md:text-4xl text-slate-800 mb-8 text-center">
+                      ඔබ පැමිණෙන්නේද?
+                    </h3>
+
+                    <form className="w-full space-y-6 text-left" onSubmit={handleRsvpSubmit}>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-slate-500 ml-1">ඔබගේ නම</label>
+                        <input
+                          type="text"
+                          placeholder="ඔබගේ නම මෙහි ලියන්න..."
+                          value={rsvpForm.name}
+                          onChange={(e) => {
+                            setRsvpStatus("idle");
+                            setRsvpForm((prev) => ({ ...prev, name: e.target.value }));
+                          }}
+                          className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all text-base font-numeric"
+                          required
+                        />
+                      </div>
+
+                      <div className="space-y-4 pt-2">
+                        <label className="text-xs font-bold text-slate-500 ml-1">
+                          අපගේ විශේෂ දිනයට ඔබ පැමිණෙන්නේද?
+                        </label>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setRsvpStatus("idle");
+                            setRsvpForm((prev) => ({ ...prev, guests: "1" }));
+                          }}
+                          aria-pressed={rsvpForm.guests !== "0"}
+                          className="w-full bg-[#f3f3f3] hover:bg-slate-200 text-slate-700 py-5 md:py-6 rounded-xl text-sm md:text-base tracking-wide transition-all shadow-sm flex items-center justify-center px-4 leading-relaxed active:scale-[0.98]"
+                        >
+                          ඔව්, මම ආදරයෙන් පැමිණෙන්නම්!
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setRsvpStatus("idle");
+                            setRsvpForm((prev) => ({ ...prev, guests: "0" }));
+                          }}
+                          aria-pressed={rsvpForm.guests === "0"}
+                          className="w-full bg-[#f3f3f3] hover:bg-slate-200 text-slate-700 py-5 md:py-6 rounded-xl text-sm md:text-base tracking-wide transition-all shadow-sm flex items-center justify-center px-4 leading-relaxed active:scale-[0.98]"
+                        >
+                          කණගාටුයි, මට පැමිණිය නොහැක. නමුත් මගේ ආශීර්වාදය ඔබ සමඟයි.
+                        </button>
+                      </div>
+
+                      {(rsvpStatus === "success" || rsvpStatus === "error") && (
+                        <p
+                          className={`text-xs text-center font-semibold ${rsvpStatus === "success" ? "text-emerald-600" : "text-red-500"
+                            }`}
+                        >
+                          {rsvpStatus === "success"
+                            ? "ඔබගේ පැමිණීම තහවුරු කිරීම සාර්ථකව යවා ඇත."
+                            : "කරුණාකර ඔබගේ නම ඇතුළත් කර නැවත උත්සාහ කරන්න."}
+                        </p>
+                      )}
+
+                      <div className="pt-6">
+                        <button
+                          type="submit"
+                          disabled={rsvpStatus === "sending"}
+                          className="w-full bg-[#2d5a27] text-white py-4 md:py-5 rounded-xl text-sm md:text-base tracking-[0.2em] font-bold hover:bg-[#1a5c4a] transition-all shadow-md disabled:opacity-70"
+                        >
+                          {rsvpStatus === "sending" ? "යවමින්..." : "තහවුරු කරන්න"}
+                        </button>
+
+                        <p className="text-xs text-slate-400 mt-4 text-center leading-relaxed">
+                          ඔබගේ ප්‍රතිචාරය පුද්ගලිකව තබා ගනු ලැබේ.
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </motion.div>
+
+                <div className="mt-32 flex flex-col items-center gap-6 text-center w-full max-w-xl">
+                  <div className="h-px w-24 bg-slate-300" />
+                  <p className="text-slate-500 text-xs tracking-[0.4em] font-bold mt-2">
+                    සම්බන්ධතා
+                  </p>
+
+                  <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-500 text-sm md:text-base tracking-widest font-normal opacity-80 decoration-slate-300 underline-offset-4">
+                    {INVITATION.rsvpContacts.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
 
             <section className="relative py-28 md:py-48 bg-transparent overflow-hidden">
               <div className="container mx-auto px-6 max-w-7xl relative z-10 text-center">
@@ -1056,236 +1087,6 @@ export default function WeddingInvitation() {
                     </motion.div>
                   </div>
                 </div>
-              </div>
-            </section>
-
-            <section className="relative py-32 md:py-48 bg-transparent flex flex-col items-center overflow-hidden">
-              <div className="container mx-auto px-4 max-w-4xl flex flex-col items-center relative z-10 w-full">
-                <motion.h2
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-2xl md:text-4xl text-slate-800 tracking-[0.3em] mb-12 text-center"
-                >
-                  පැමිණීම තහවුරු කිරීම
-                </motion.h2>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                  viewport={{ once: true }}
-                  className="relative w-full max-w-[650px] bg-white p-6 md:p-10 shadow-[0_40px_100px_-25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center"
-                >
-                  <div className="w-full border border-slate-300 rounded-[1.5rem] p-6 md:p-8 flex flex-col items-center">
-                    <h3 className="text-2xl md:text-4xl text-slate-800 mb-8 text-center">
-                      ඔබ පැමිණෙන්නේද?
-                    </h3>
-
-                    <form className="w-full space-y-6 text-left" onSubmit={handleRsvpSubmit}>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-500 ml-1">ඔබගේ නම</label>
-                        <input
-                          type="text"
-                          placeholder="ඔබගේ නම මෙහි ලියන්න..."
-                          value={rsvpForm.name}
-                          onChange={(e) => {
-                            setRsvpStatus("idle");
-                            setRsvpForm((prev) => ({ ...prev, name: e.target.value }));
-                          }}
-                          className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-400 transition-all text-base font-numeric"
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-4 pt-2">
-                        <label className="text-xs font-bold text-slate-500 ml-1">
-                          අපගේ විශේෂ දිනයට ඔබ පැමිණෙන්නේද?
-                        </label>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setRsvpStatus("idle");
-                            setRsvpForm((prev) => ({ ...prev, guests: "1" }));
-                          }}
-                          aria-pressed={rsvpForm.guests !== "0"}
-                          className="w-full bg-[#f3f3f3] hover:bg-slate-200 text-slate-700 py-5 md:py-6 rounded-xl text-sm md:text-base tracking-wide transition-all shadow-sm flex items-center justify-center px-4 leading-relaxed active:scale-[0.98]"
-                        >
-                          ඔව්, මම ආදරයෙන් පැමිණෙන්නම්!
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setRsvpStatus("idle");
-                            setRsvpForm((prev) => ({ ...prev, guests: "0" }));
-                          }}
-                          aria-pressed={rsvpForm.guests === "0"}
-                          className="w-full bg-[#f3f3f3] hover:bg-slate-200 text-slate-700 py-5 md:py-6 rounded-xl text-sm md:text-base tracking-wide transition-all shadow-sm flex items-center justify-center px-4 leading-relaxed active:scale-[0.98]"
-                        >
-                          කණගාටුයි, මට පැමිණිය නොහැක. නමුත් මගේ ආශීර්වාදය ඔබ සමඟයි.
-                        </button>
-                      </div>
-
-                      {(rsvpStatus === "success" || rsvpStatus === "error") && (
-                        <p
-                          className={`text-xs text-center font-semibold ${rsvpStatus === "success" ? "text-emerald-600" : "text-red-500"
-                            }`}
-                        >
-                          {rsvpStatus === "success"
-                            ? "ඔබගේ පැමිණීම තහවුරු කිරීම සාර්ථකව යවා ඇත."
-                            : "කරුණාකර ඔබගේ නම ඇතුළත් කර නැවත උත්සාහ කරන්න."}
-                        </p>
-                      )}
-
-                      <div className="pt-6">
-                        <button
-                          type="submit"
-                          disabled={rsvpStatus === "sending"}
-                          className="w-full bg-[#2d5a27] text-white py-4 md:py-5 rounded-xl text-sm md:text-base tracking-[0.2em] font-bold hover:bg-[#1a5c4a] transition-all shadow-md disabled:opacity-70"
-                        >
-                          {rsvpStatus === "sending" ? "යවමින්..." : "තහවුරු කරන්න"}
-                        </button>
-
-                        <p className="text-xs text-slate-400 mt-4 text-center leading-relaxed">
-                          ඔබගේ ප්‍රතිචාරය පුද්ගලිකව තබා ගනු ලැබේ.
-                        </p>
-                      </div>
-                    </form>
-                  </div>
-                </motion.div>
-
-                <div className="mt-32 flex flex-col items-center gap-6 text-center w-full max-w-xl">
-                  <div className="h-px w-24 bg-slate-300" />
-                  <p className="text-slate-500 text-xs tracking-[0.4em] font-bold mt-2">
-                    සම්බන්ධතා
-                  </p>
-
-                  <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-slate-500 text-sm md:text-base tracking-widest font-normal opacity-80 decoration-slate-300 underline-offset-4">
-                    {INVITATION.rsvpContacts.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="relative py-28 md:py-48 bg-transparent overflow-hidden">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] text-[#3f7a39]/5 whitespace-nowrap pointer-events-none select-none italic">
-                මිහිරි පණිවිඩ
-              </div>
-
-              <div className="container mx-auto px-6 max-w-5xl relative z-10 text-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="space-y-6 mb-20"
-                >
-                  <div className="flex flex-col items-center gap-3">
-                    <span className="text-[#2d5a27] font-bold tracking-[0.6em] text-sm md:text-base opacity-50">
-                      අමුත්තන්ගේ සටහන් පොත
-                    </span>
-                    <div className="h-px w-16 bg-[#3f7a39]/30" />
-                  </div>
-
-                  <h2 className="text-5xl md:text-8xl bg-gradient-to-r from-[#3f7a39] via-[#2d5a27] to-[#3f7a39] bg-clip-text text-transparent leading-none drop-shadow-sm italic">
-                    ආදරණීය පැතුම්
-                  </h2>
-
-                  <p className="text-[#2d5a27]/70 text-sm md:text-base tracking-[0.3em] font-medium max-w-xl mx-auto pt-4 leading-loose">
-                    ඔබගේ ආදරය සහ ආශීර්වාදය අපට ලැබෙන වටිනාම ත්‍යාගයකි. නව ජීවිතයට මතක සටහනක් තබා යන්න.
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="max-w-3xl mx-auto"
-                >
-                  <div className="bg-white p-10 md:p-20 shadow-[0_40px_100px_-20px_rgba(45,90,39,0.1)] border border-[#a2c5a0]/40 relative overflow-hidden">
-                    <div className="absolute inset-4 border border-[#a2c5a0]/20 pointer-events-none" />
-                    <div className="absolute inset-6 border-[0.5px] border-[#3f7a39]/10 pointer-events-none" />
-
-                    <div className="absolute top-4 left-4 w-12 h-12 border-t border-l border-[#3f7a39]/40 rounded-tl-xl" />
-                    <div className="absolute bottom-4 right-4 w-12 h-12 border-b border-r border-[#3f7a39]/40 rounded-br-xl" />
-
-                    <form className="space-y-16 text-left relative z-10" onSubmit={handleWishSubmit}>
-                      <div className="space-y-6 group">
-                        <label className="text-xs tracking-[0.4em] font-bold text-[#2d5a27]/40 group-focus-within:text-[#3f7a39] transition-colors">
-                          ඔබගේ නම
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            placeholder="ඔබගේ නම"
-                            value={wishForm.name}
-                            onChange={(e) => {
-                              setWishStatus("idle");
-                              setWishForm((prev) => ({ ...prev, name: e.target.value }));
-                            }}
-                            className="w-full bg-transparent border-b border-[#a2c5a0]/60 px-0 py-4 text-[#2d5a27] placeholder:text-[#a2c5a0]/30 focus:outline-none focus:border-[#2d5a27] transition-all text-xl tracking-widest font-numeric"
-                            required
-                          />
-                          <div className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#2d5a27] transition-all duration-500 group-focus-within:w-full" />
-                        </div>
-                      </div>
-
-                      <div className="space-y-6 group">
-                        <label className="text-xs tracking-[0.4em] font-bold text-[#2d5a27]/40 group-focus-within:text-[#3f7a39] transition-colors">
-                          ඔබගේ පණිවිඩය
-                        </label>
-                        <div className="relative">
-                          <textarea
-                            rows={4}
-                            placeholder="නව යුවළට ඔබගේ ආදරණීය පැතුම් ලියන්න..."
-                            value={wishForm.message}
-                            onChange={(e) => {
-                              setWishStatus("idle");
-                              setWishForm((prev) => ({ ...prev, message: e.target.value }));
-                            }}
-                            className="w-full bg-transparent border-b border-[#a2c5a0]/60 px-0 py-4 text-[#2d5a27] placeholder:text-[#a2c5a0]/30 focus:outline-none focus:border-[#2d5a27] transition-all text-lg tracking-widest resize-none leading-relaxed font-numeric"
-                            required
-                          />
-                          <div className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#2d5a27] transition-all duration-500 group-focus-within:w-full" />
-                        </div>
-                      </div>
-
-                      <AnimatePresence>
-                        {(wishStatus === "success" || wishStatus === "error") && (
-                          <motion.p
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className={`text-xs text-center font-bold tracking-widest ${wishStatus === "success" ? "text-emerald-600" : "text-red-500"
-                              }`}
-                          >
-                            {wishStatus === "success"
-                              ? "ඔබගේ ආදරණීය පණිවිඩය සාර්ථකව යවා ඇත"
-                              : "කරුණාකර නම සහ පණිවිඩය සම්පූර්ණ කරන්න"}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-
-                      <div className="pt-8 flex justify-center">
-                        <button
-                          type="submit"
-                          disabled={wishStatus === "sending"}
-                          className="group relative px-16 py-6 bg-[#2d5a27] text-white font-bold tracking-[0.5em] text-xs hover:bg-slate-900 transition-all duration-500 shadow-xl disabled:opacity-70 overflow-hidden"
-                        >
-                          <div className="absolute inset-0 bg-white/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500" />
-                          <span className="relative z-10 flex items-center gap-3">
-                            <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                            {wishStatus === "sending" ? "යවමින්..." : "පැතුම් යවන්න"}
-                          </span>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </motion.div>
               </div>
             </section>
 
