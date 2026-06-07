@@ -4,29 +4,29 @@ import { Sparkles, MapPin, Calendar, Clock, ChevronDown } from "lucide-react";
 
 const INVITATION = {
   couple: {
-    bride: "සයුරි",
-    groom: "චතුර",
-    brideFull: "සයුරි",
-    groomFull: "චතුර",
+    bride: "මලීෂා",
+    groom: "කවිඳු",
+    brideFull: "මලීෂා කුමාරප්පෙරුම",
+    groomFull: "කවිඳු ගෝවින්ද",
   },
   date: {
-    displayNumeric: "05 . 11 . 2026",
-    displayLong: "බ්‍රහස්පතින්දා, 05 නොවැම්බර් 2026",
-    countdownTarget: "2026-11-05T10:02:00+05:30",
+    displayNumeric: "23 . 07 . 2026",
+    displayLong: "වර්ෂ 2026 ක් වූ ජූලි මස 23 වන දින",
+    countdownTarget: "2026-07-23T10:10:00+05:30",
   },
   time: {
-    ceremonyStart: "පෙ.ව. 10:02",
-    ceremonyEnd: "පෙ.ව. 10:32",
+    ceremonyStart: "පෙ.ව. 10:10",
+    ceremonyEnd: "ප.ව. 3:30",
     registration: "පෙ.ව. 10:45",
-    welcome: "පෙ.ව. 11:00",
+    welcome: "පෙ.ව. 9:30",
   },
   venue: {
-    name: "අමායා හිල්ස්",
-    city: "මහනුවර",
-    mapQuery: "Amaya Hills, Kandy",
-    googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Amaya+Hills+Kandy",
+    name: "Grandeeza Hotel",
+    city: "Negombo",
+    mapQuery: "Grandeeza Hotel, Negombo",
+    googleMapsLink: "https://maps.app.goo.gl/oFXbL74vBvHcvBX69",
   },
-  rsvpContacts: ["චන්දන – 076 9640 950", "චතුර – 077 1432 866"],
+  rsvpContacts: ["එස්. කුමාරප්පෙරුම – 0711-321721 / 071-2657070"],
 } as const;
 
 const backgroundMusic = "/Datha_Dara_Dhanith_Sri_Sarigama_lk (1).mp3";
@@ -263,6 +263,9 @@ export default function WeddingInvitation() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasAttemptedAutoplay, setHasAttemptedAutoplay] = useState(false);
 
+  const searchParams = new URLSearchParams(window.location.search);
+  const guestName = searchParams.get("to");
+
   const [rsvpForm, setRsvpForm] = useState({
     name: "",
     guests: "1",
@@ -378,7 +381,6 @@ export default function WeddingInvitation() {
           >
             <video
               ref={introVideoRef}
-              src="/intro_video.mp4"
               muted={!hasStarted}
               playsInline
               preload="auto"
@@ -387,8 +389,10 @@ export default function WeddingInvitation() {
               className={`w-full h-full object-cover transition-all duration-[2000ms] ease-out ${!hasStarted ? "blur-md scale-105 opacity-80" : "blur-0 scale-100 opacity-100"
                 }`}
               onEnded={() => setIsOpened(true)}
-              onError={() => setIsOpened(true)}
-            />
+              onError={(e) => { console.error("Video error:", e); setIsOpened(true); }}
+            >
+              <source src="/intro_video.mp4" type="video/mp4" />
+            </video>
 
             {!hasStarted && (
               <div className="absolute inset-0 flex flex-col items-center justify-center z-[120] bg-black/40 backdrop-blur-[2px]">
@@ -521,14 +525,21 @@ export default function WeddingInvitation() {
 
             <section className="w-full relative flex items-start justify-center overflow-hidden bg-transparent min-h-[85vh] pt-20 md:pt-32">
               <div
-                className="absolute inset-0 bg-center bg-cover opacity-30"
-                style={{ backgroundImage: `url("${HERO_BACKGROUND_IMAGE}")` }}
+                className="absolute inset-0 bg-center bg-cover"
+                style={{ backgroundImage: `url("/ChatGPT%20Image%20Jun%208,%202026,%2002_43_56%20AM.png")` }}
                 aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-white/20" aria-hidden="true" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-white" aria-hidden="true" />
 
               <div className="relative z-10 w-full max-w-5xl px-6 text-center">
+                {guestName && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-lg md:text-xl font-bold text-[#2d5a27] mb-2 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                  >
+                    {guestName}
+                  </motion.p>
+                )}
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -562,7 +573,7 @@ export default function WeddingInvitation() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.35, duration: 0.8 }}
-                  className="mt-12 space-y-5"
+                  className="mt-4 md:mt-12 space-y-4 md:space-y-5"
                 >
                   <p className="text-sm md:text-base tracking-[0.35em] text-[#2d5a27] font-bold drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
                     {INVITATION.date.displayLong}
@@ -620,17 +631,17 @@ export default function WeddingInvitation() {
 
                   <div className="text-[#2d5a27] space-y-6 max-w-3xl mx-auto leading-relaxed text-base md:text-lg">
                     <p className="text-slate-700">
-                      උපාලි ගනේවත්ත මහතාගේ සහ නාලනී උයන්වත්ත මහත්මියගේ ආදරණීය දියණිය වන
+                      කුමාරප්පෙරුම මහතාගේ සහ එම මහත්මියගේ ආදරණීය දියණිය වන
                     </p>
                     <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
-                      සයුරි,
+                      මලීෂා කුමාරප්පෙරුම
                     </h3>
 
                     <p className="text-slate-700">
-                      ඕ. කේ. අලුත්ගමගේ මහතාගේ සහ රංජනී රාජපක්ෂ මහත්මියගේ ආදරණීය පුත් වන
+                      හෙට්ටිආරච්චිගේ මහතාගේ සහ එම මහත්මියගේ ආදරණීය පුත් වන
                     </p>
                     <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
-                      චතුර
+                      කවිඳු ගෝවින්ද
                     </h3>
 
                     <p className="text-slate-700 max-w-2xl mx-auto pt-2">
@@ -638,14 +649,17 @@ export default function WeddingInvitation() {
                     </p>
 
                     <div className="py-6 my-4 border-t border-b border-[#a2c5a0]/50 space-y-3 font-semibold text-[#2d5a27]">
-                      <p>2026 නොවැම්බර් මස 05 වන ගුරු දින,</p>
-                      <p>අමායා හිල්ස් උත්සව ශාලා පරිශ්‍රයට,</p>
-                      <p>ඔබට</p>
-                      <p className="text-lg md:text-xl font-bold">පැමිණෙන මෙන් ගෞරවයෙන් ආරාධනා කර සිටිමු.</p>
+                      <p>වර්ෂ 2026 ක් වූ ජූලි මස 23 වන දින</p>
+                      <p>පෙරවරු 9.30 සිට පස්වරු 3.30 දක්වා,</p>
+                      <p>Grandeeza Hotel - Negombo හිදී පැවැත්වෙන මංගල උත්සවයට</p>
+                      <p className="text-xl md:text-2xl font-bold text-[#800000] my-2">
+                        {guestName ? guestName : "ඔබට / ඔබ දෙපලට / ඔබ සැමට"}
+                      </p>
+                      <p className="text-lg md:text-xl font-bold">සෙනෙහසින් සිතින් ඇරයුම් කරන්නෙමු.</p>
                     </div>
 
                     <p className="text-[#3f7a39] font-bold text-sm md:text-base">
-                      (පෝරුවේ චාරිත්‍ර පෙ.ව. 10.02 ට)
+                      (පෝරුවේ චාරිත්‍ර පෙ.ව. 10.10 ට)
                     </p>
 
                     <p className="text-[#2d5a27] font-bold text-lg md:text-xl mt-6">
@@ -819,8 +833,6 @@ export default function WeddingInvitation() {
                 </motion.div>
               </div>
             </section>
-
-            <Gallery />
 
 
             <section className="relative py-16 md:py-48 bg-transparent flex flex-col items-center overflow-hidden">
