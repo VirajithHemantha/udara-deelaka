@@ -408,7 +408,7 @@ export default function WeddingInvitation() {
                     className="mb-12"
                   >
                     <h2 className="text-4xl md:text-6xl text-white mb-2 drop-shadow-2xl">
-                      ස්වස්ති සිද්ධම්
+                      විවාහ ආරාධනයයි
                     </h2>
                     <p className="text-xl md:text-2xl text-[#dcebe1] tracking-[0.3em] drop-shadow-lg">
                       {INVITATION.couple.bride} සහ {INVITATION.couple.groom}
