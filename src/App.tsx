@@ -381,7 +381,7 @@ export default function WeddingInvitation() {
           >
             <video
               ref={introVideoRef}
-              muted={!hasStarted}
+              muted={true}
               playsInline
               preload="auto"
               autoPlay
@@ -420,10 +420,13 @@ export default function WeddingInvitation() {
                       setHasStarted(true);
 
                       if (introVideoRef.current) {
-                        introVideoRef.current.muted = false;
                         introVideoRef.current.loop = false;
                         introVideoRef.current.currentTime = 0;
                         introVideoRef.current.play().catch((err) => console.log(err));
+                      }
+                      
+                      if (audioRef.current && !isPlaying) {
+                        audioRef.current.play().then(() => setIsPlaying(true)).catch((err) => console.log("Audio play failed:", err));
                       }
                     }}
                     className="group relative px-12 py-5 overflow-hidden rounded-full transition-all duration-500 hover:scale-105 active:scale-95"
@@ -523,7 +526,7 @@ export default function WeddingInvitation() {
               </div>
             </motion.button>
 
-            <section className="w-full relative flex items-start justify-center overflow-hidden bg-transparent min-h-[85vh] pt-20 md:pt-32">
+            <section className="w-full relative flex items-start justify-center overflow-hidden bg-transparent min-h-[100dvh] md:min-h-[85vh] pt-20 md:pt-32">
               <div
                 className="absolute inset-0 bg-center bg-cover"
                 style={{ backgroundImage: `url("/ChatGPT%20Image%20Jun%208,%202026,%2002_43_56%20AM.png")` }}
