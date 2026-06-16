@@ -7,7 +7,7 @@ const INVITATION = {
     bride: "මලීෂා",
     groom: "කවිඳු",
     brideFull: "මලීෂා කුමාරප්පෙරුම",
-    groomFull: "කවිඳු ගෝවින්ද",
+    groomFull: "කවිඳු ශාවින්ද",
   },
   date: {
     displayNumeric: "23 . 07 . 2026",
@@ -29,7 +29,7 @@ const INVITATION = {
   rsvpContacts: ["එස්. කුමාරප්පෙරුම – 0711-321721 / 071-2657070"],
 } as const;
 
-const backgroundMusic = "/Datha_Dara_Dhanith_Sri_Sarigama_lk (1).mp3";
+const backgroundMusic = "/handawaka-various-artists.mp3";
 const googleScriptUrl =
   "https://script.google.com/macros/s/AKfycbyHN1BshRvxx96eATyW9C0rtkaNFXAoNAe9lh0TiO1uJ-eKzlwXTKglqTUSz5ZH-CoKqA/exec";
 
@@ -628,10 +628,10 @@ export default function WeddingInvitation() {
                     </h3>
 
                     <p className="text-slate-700">
-                      හෙට්ටිආරච්චිගේ මහතාගේ සහ එම මහත්මියගේ ආදරණීය පුත් වන
+                      හේවාගජමගේ මහතාගේ සහ එම මහත්මියගේ ආදරණීය පුත් වන
                     </p>
                     <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
-                      කවිඳු ගෝවින්ද
+                      කවිඳු ශාවින්ද
                     </h3>
 
                     <p className="text-slate-700 max-w-2xl mx-auto pt-2">
@@ -640,9 +640,7 @@ export default function WeddingInvitation() {
 
 
 
-                    <p className="text-[#2d5a27] font-bold text-lg md:text-xl mt-6">
-                      ඔබගේ සහභාගිත්වය අප දෙදෙනාට මහත් ආශීර්වාදයකි!
-                    </p>
+
                   </div>
                 </motion.div>
 
@@ -662,19 +660,18 @@ export default function WeddingInvitation() {
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="relative z-20 w-full max-w-[560px] bg-white p-8 md:p-14 shadow-[0_30px_70px_-15px_rgba(45,90,39,0.1)] flex flex-col items-center justify-center text-center"
+                    className="relative z-20 w-full max-w-[560px] bg-gradient-to-b from-white to-[#fcfcfc] p-8 md:p-14 rounded-3xl border border-[#3f7a39]/30 shadow-[0_0_50px_-12px_rgba(45,90,39,0.25)] flex flex-col items-center justify-center text-center overflow-hidden"
                   >
-                    <div className="absolute inset-2 ] pointer-events-none" />
+                    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#2d5a27] via-[#52b788] to-[#2d5a27]" />
+                    <div className="absolute inset-2 border border-[#3f7a39]/10 rounded-[1.5rem] pointer-events-none" />
 
-
-
-                    <div className="mt-12 grid grid-cols-1 gap-6 w-full text-left">
+                    <div className="w-full text-left grid grid-cols-1 gap-8 relative z-10">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                          <Calendar className="w-4 h-4 text-[#3f7a39]" />
+                        <div className="w-12 h-12 rounded-full bg-[#3f7a39]/10 flex items-center justify-center shrink-0 border border-[#3f7a39]/20 shadow-inner">
+                          <Calendar className="w-5 h-5 text-[#3f7a39]" />
                         </div>
-                        <div>
-                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/40">
+                        <div className="pt-1">
+                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/50 mb-1">
                             දිනය
                           </div>
                           <div className="text-base md:text-lg text-[#2d5a27] tracking-wide font-bold">
@@ -684,11 +681,11 @@ export default function WeddingInvitation() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                          <Clock className="w-4 h-4 text-[#2d5a27]" />
+                        <div className="w-12 h-12 rounded-full bg-[#2d5a27]/10 flex items-center justify-center shrink-0 border border-[#2d5a27]/20 shadow-inner">
+                          <Clock className="w-5 h-5 text-[#2d5a27]" />
                         </div>
-                        <div>
-                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/40">
+                        <div className="pt-1">
+                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/50 mb-1">
                             වේලාව
                           </div>
                           <div className="text-base md:text-lg text-[#2d5a27] tracking-wide font-bold">
@@ -698,11 +695,11 @@ export default function WeddingInvitation() {
                       </div>
 
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                          <MapPin className="w-4 h-4 text-[#2d5a27]" />
+                        <div className="w-12 h-12 rounded-full bg-[#2d5a27]/10 flex items-center justify-center shrink-0 border border-[#2d5a27]/20 shadow-inner">
+                          <MapPin className="w-5 h-5 text-[#2d5a27]" />
                         </div>
-                        <div>
-                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/40">
+                        <div className="pt-1">
+                          <div className="text-xs md:text-[11px] tracking-[0.5em] font-bold text-[#2d5a27]/50 mb-1">
                             ස්ථානය
                           </div>
                           <div className="text-base md:text-lg text-[#2d5a27] tracking-wide font-bold">
@@ -712,7 +709,7 @@ export default function WeddingInvitation() {
                             href={INVITATION.venue.googleMapsLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-1.5 inline-flex text-[10px] md:text-xs text-[#3f7a39] hover:text-[#1b4332] font-bold tracking-widest uppercase border-b border-[#3f7a39]/30 hover:border-[#1b4332] transition-colors pb-0.5"
+                            className="mt-2 inline-flex text-[10px] md:text-xs text-[#3f7a39] hover:text-[#1b4332] font-bold tracking-widest uppercase border-b border-[#3f7a39]/30 hover:border-[#1b4332] transition-colors pb-0.5"
                           >
                             View on Google Maps
                           </a>
