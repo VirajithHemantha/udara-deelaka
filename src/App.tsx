@@ -4,10 +4,10 @@ import { Sparkles, MapPin, Calendar, Clock, ChevronDown } from "lucide-react";
 
 const INVITATION = {
   couple: {
-    bride: "මලීෂා",
-    groom: "කවිඳු",
-    brideFull: "මලීෂා කුමාරප්පෙරුම",
-    groomFull: "කවිඳු ශාවින්ද",
+    bride: "උදාරා",
+    groom: "දීලක",
+    brideFull: "උදාරා කුමරප්පෙරුම",
+    groomFull: "දීලක බණ්ඩාරනායක",
   },
   date: {
     displayNumeric: "23 . 07 . 2026",
@@ -26,7 +26,7 @@ const INVITATION = {
     mapQuery: "Grandeeza Hotel, Negombo",
     googleMapsLink: "https://maps.app.goo.gl/oFXbL74vBvHcvBX69",
   },
-  rsvpContacts: ["එස්. කුමාරප්පෙරුම – 0711-321721 / 071-2657070"],
+  rsvpContacts: ["එස්. කුමරප්පෙරුම – 0711-321721 / 071-2657070"],
 } as const;
 
 const backgroundMusic = "/handawaka-various-artists.mp3";
@@ -621,17 +621,17 @@ export default function WeddingInvitation() {
 
                   <div className="text-[#2d5a27] space-y-6 max-w-3xl mx-auto leading-relaxed text-base md:text-lg">
                     <p className="text-slate-700">
-                      කුමාරප්පෙරුම මහතාගේ සහ එම මහත්මියගේ ආදරණීය දියණිය වන
+                      කුමරප්පෙරුම මහතාගේ සහ එම මහත්මියගේ ආදරණීය දියණිය වන
                     </p>
                     <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
-                      මලීෂා කුමාරප්පෙරුම
+                      උදාරා කුමරප්පෙරුම
                     </h3>
 
                     <p className="text-slate-700">
-                      හේවාගජමගේ මහතාගේ සහ එම මහත්මියගේ ආදරණීය පුත් වන
+                      බණ්ඩාරනායක මහතාගේ සහ එම මැතිණියගේ ආදරණීය පුත් වන
                     </p>
                     <h3 className="text-3xl md:text-4xl font-bold text-[#3f7a39] my-2">
-                      කවිඳු ශාවින්ද
+                      දීලක බණ්ඩාරනායක
                     </h3>
 
                     <p className="text-slate-700 max-w-2xl mx-auto pt-2">
