@@ -26,7 +26,10 @@ const INVITATION = {
     mapQuery: "Grandeeza Hotel, Negombo",
     googleMapsLink: "https://maps.app.goo.gl/oFXbL74vBvHcvBX69",
   },
-  rsvpContacts: ["එස්. කුමරප්පෙරුම – 0711-321721 / 071-2657070"],
+  rsvpContacts: [
+    "Udara - +61 450 512 342",
+    "Deelaka - +61 433 470 302",
+  ],
 } as const;
 
 const backgroundMusic = "/handawaka-various-artists.mp3";
